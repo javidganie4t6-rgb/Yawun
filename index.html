@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YAWUN — The Soul of Kashmir</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600&display=swap');
+
+  :root{
+    --walnut:#241712;
+    --walnut-deep:#160e0a;
+    --cream:#F4ECD8;
+    --cream-soft:#ECE1C7;
+    --maroon:#7A2418;
+    --gold:#B8863B;
+    --gold-soft:#D2AD6C;
+    --indigo:#3A4A5E;
+    --ink:#2A2018;
+    --line: rgba(42,32,24,0.16);
+    --line-light: rgba(244,236,216,0.22);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Work Sans', sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.6;
+    font-size:16px;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    color:var(--walnut);
+    line-height:1.12;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block; max-width:100%;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px;}
+  @media(max-width:640px){ .wrap{padding:0 22px;} }
+
+  /* stitched divider */
+  .stitch{
+    height:14px;
+    background-image: repeating-linear-gradient(90deg, var(--gold) 0 10px, transparent 10px 20px);
+    background-size: 20px 2px;
+    background-repeat:repeat-x;
+    background-position:center;
+    opacity:0.55;
+  }
+  .stitch.dark{ background-image: repeating-linear-gradient(90deg, var(--gold-soft) 0 10px, transparent 10px 20px); }
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(244,236,216,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 0;
+  }
+  .brand{
+    font-family:'Fraunces', serif;
+    font-size:22px;
+    font-weight:600;
+    color:var(--walnut);
+    display:flex; align-items:baseline; gap:8px;
+  }
+  .brand small{
+    font-family:'Work Sans', sans-serif;
+    font-size:11px;
+    font-weight:500;
+    color:var(--maroon);
+    letter-spacing:0.03em;
+  }
+  .tagline-strip{
+    font-family:'Fraunces', serif; font-style:italic; font-size:13px;
+    color:var(--maroon); text-align:center; padding:7px 0;
+    background:var(--cream-soft); border-bottom:1px solid var(--line);
+  }
+  nav.links{display:flex; gap:34px; font-size:14.5px;}
+  nav.links a{position:relative; padding-bottom:3px; color:var(--ink);}
+  nav.links a::after{
+    content:''; position:absolute; left:0; right:0; bottom:0; height:1px;
+    background:var(--maroon); transform:scaleX(0); transform-origin:left;
+    transition:transform .25s ease;
+  }
+  nav.links a:hover::after{transform:scaleX(1);}
+  .nav-cta{
+    border:1px solid var(--walnut); padding:9px 20px; font-size:13.5px; border-radius:2px;
+  }
+  .menu-btn{display:none; background:none; border:none; font-size:26px; color:var(--walnut);}
+  @media(max-width:820px){
+    nav.links, .nav-cta{display:none;}
+    .menu-btn{display:block;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:88px 0 76px;
+    overflow:hidden;
+    background:var(--cream);
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr 0.85fr; gap:48px; align-items:center;
+  }
+  @media(max-width:900px){ .hero-grid{grid-template-columns:1fr;} }
+  .eyebrow-line{
+    display:flex; align-items:center; gap:12px; margin-bottom:22px; color:var(--maroon); font-size:13.5px; font-weight:500;
+  }
+  .eyebrow-line .dash{width:28px; height:1px; background:var(--maroon);}
+  .hero h1{
+    font-size:clamp(38px, 5.4vw, 62px);
+    max-width:11ch;
+  }
+  .hero p.lede{
+    margin-top:22px; max-width:44ch; font-size:17.5px; color:#4a3d30;
+  }
+  .hero-actions{display:flex; gap:16px; margin-top:34px; flex-wrap:wrap;}
+  .btn{
+    display:inline-block; padding:14px 28px; font-size:14.5px; font-weight:500;
+    border-radius:2px; border:1px solid transparent; cursor:pointer;
+  }
+  .btn-primary{background:var(--maroon); color:var(--cream);}
+  .btn-primary:hover{background:#651e14;}
+  .btn-ghost{border-color:var(--walnut); color:var(--walnut);}
+  .btn-ghost:hover{background:var(--walnut); color:var(--cream);}
+
+  .hero-art{
+    position:relative; aspect-ratio:1/1.1;
+    background:var(--walnut);
+    display:flex; align-items:center; justify-content:center;
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .hero-art svg{width:70%; height:70%;}
+  .hero-art img{width:100%; height:100%; object-fit:cover; object-position:top center;}
+
+  /* ---------- MARQUEE STRIP ---------- */
+  .strip{
+    background:var(--walnut); color:var(--cream-soft);
+    padding:16px 0; overflow:hidden; white-space:nowrap;
+  }
+  .strip-inner{display:inline-flex; gap:48px; animation:scroll 32s linear infinite;}
+  .strip span{font-family:'Fraunces', serif; font-style:italic; font-size:16px; opacity:0.85;}
+  .strip span.sep{color:var(--gold); font-style:normal;}
+  @keyframes scroll{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+  /* ---------- STORY ---------- */
+  .story{padding:96px 0; }
+  .story-grid{
+    display:grid; grid-template-columns:0.9fr 1.1fr; gap:64px; align-items:start;
+  }
+  @media(max-width:900px){ .story-grid{grid-template-columns:1fr; gap:36px;} }
+  .story h2{font-size:clamp(28px,3.6vw,38px); max-width:12ch;}
+  .story .col p{margin-bottom:16px; color:#4a3d30; font-size:15.5px; max-width:56ch;}
+  .story .col p:first-child{
+    font-family:'Fraunces', serif; font-size:21px; color:var(--walnut); line-height:1.5; font-weight:400;
+  }
+
+  /* ---------- CRAFT ---------- */
+  .craft{background:var(--walnut); color:var(--cream); padding:100px 0;}
+  .craft-head{max-width:52ch; margin-bottom:56px;}
+  .craft-head h2{color:var(--cream); font-size:clamp(28px,3.6vw,38px);}
+  .craft-head p{margin-top:16px; color:var(--cream-soft); font-size:15.5px;}
+  .craft-grid{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
+    background:var(--line-light);
+    border:1px solid var(--line-light);
+  }
+  @media(max-width:760px){ .craft-grid{grid-template-columns:1fr;} }
+  .craft-item{
+    background:var(--walnut); padding:38px 32px; min-height:260px;
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .craft-item svg{width:40px; height:40px; margin-bottom:26px;}
+  .craft-item h3{color:var(--cream); font-size:20px; font-weight:500;}
+  .craft-item p{color:var(--cream-soft); font-size:14px; margin-top:10px;}
+  .craft-item .kash{color:var(--gold-soft); font-size:13px; font-style:italic; font-family:'Fraunces', serif; margin-top:14px;}
+
+  /* ---------- COLLECTION ---------- */
+  .collection{padding:100px 0;}
+  .coll-head{
+    display:flex; justify-content:space-between; align-items:flex-end; gap:24px; margin-bottom:52px; flex-wrap:wrap;
+  }
+  .coll-head h2{font-size:clamp(28px,3.6vw,38px); max-width:10ch;}
+  .coll-head p{max-width:38ch; font-size:15px; color:#4a3d30;}
+  .coll-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:28px;
+  }
+  @media(max-width:900px){ .coll-grid{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:520px){ .coll-grid{grid-template-columns:1fr;} }
+  .coll-card{
+    border-top:2px solid var(--walnut); padding-top:22px;
+  }
+  .coll-swatch{
+    aspect-ratio:3/4; background:var(--cream-soft); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+    overflow:hidden;
+  }
+  .coll-swatch img{width:100%; height:100%; object-fit:cover; object-position:top center;}
+  .coll-swatch svg{width:52%; height:52%; opacity:0.85;}
+  .coll-card h3{font-size:18px; font-weight:500;}
+  .coll-card p{font-size:13.5px; color:#6b5c48; margin-top:6px;}
+
+  /* ---------- VISIT / CONTACT ---------- */
+  .visit{
+    background:var(--cream-soft); padding:100px 0;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  }
+  .visit-grid{display:grid; grid-template-columns:1fr 1fr; gap:64px;}
+  @media(max-width:840px){ .visit-grid{grid-template-columns:1fr; gap:44px;} }
+  .visit h2{font-size:clamp(26px,3.4vw,34px); margin-bottom:22px; max-width:12ch;}
+  .info-row{
+    display:flex; gap:18px; padding:18px 0; border-bottom:1px solid var(--line);
+  }
+  .info-row:first-of-type{border-top:1px solid var(--line);}
+  .info-row .label{width:110px; flex-shrink:0; font-size:13px; color:var(--maroon); font-weight:500; padding-top:2px;}
+  .info-row .val{font-size:15px; color:var(--ink);}
+  .info-row .val small{display:block; color:#8a7a63; font-size:12.5px; margin-top:3px;}
+  .note{
+    margin-top:26px; font-size:13px; color:#8a7a63; font-style:italic;
+  }
+  .map-frame{
+    border:1px solid var(--line); background:var(--walnut); aspect-ratio:4/3;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding:32px; text-align:center;
+  }
+  .map-frame svg{width:44px; height:44px;}
+  .map-frame span{color:var(--cream-soft); font-size:14px; max-width:26ch;}
+  .map-frame a.btn{margin-top:6px;}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--walnut-deep); color:var(--cream-soft); padding:56px 0 30px;}
+  .foot-grid{
+    display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:40px; padding-bottom:40px;
+  }
+  @media(max-width:700px){ .foot-grid{grid-template-columns:1fr; gap:28px;} }
+  .foot-grid h4{font-size:13px; color:var(--gold-soft); font-weight:500; margin-bottom:14px;}
+  .foot-grid p, .foot-grid a{font-size:14px; color:var(--cream-soft); display:block; margin-bottom:8px;}
+  .foot-grid a:hover{color:var(--cream);}
+  .foot-brand{font-family:'Fraunces', serif; font-size:22px; color:var(--cream); margin-bottom:12px;}
+  .foot-bottom{
+    display:flex; justify-content:space-between; padding-top:24px; border-top:1px solid var(--line-light);
+    font-size:12.5px; color:#8a7a63; flex-wrap:wrap; gap:10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="tagline-strip">Woven with love, worn with pride</div>
+<header>
+  <div class="wrap nav">
+    <div class="brand">YAWUN <small>THE SOUL OF KASHMIR</small></div>
+    <nav class="links">
+      <a href="#story">Our Story</a>
+      <a href="#craft">Craft</a>
+      <a href="#collection">Collection</a>
+      <a href="#menswear">Menswear</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#visit">Visit &amp; Contact</a>
+    </nav>
+    <a href="#visit" class="nav-cta">Get in Touch</a>
+    <button class="menu-btn" aria-label="Menu">☰</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow-line"><span class="dash"></span> Boutique &amp; Showroom · Kunzer, Baramulla</div>
+      <h1>Embroidery carried down through generations of Kashmiri hands.</h1>
+      <p class="lede">YAWUN is a boutique-cum-showroom bringing Kashmiri cultural clothing to your wardrobe — ready pieces, custom stitching designs, and custom cultural embroidery, sozni, tilla and aari, worked by hand in Kunzer.</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/917051539942" target="_blank" rel="noopener" class="btn btn-primary">Order on WhatsApp</a>
+        <a href="#collection" class="btn btn-ghost">View the Collection</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="images/1000353359.jpg" alt="Pink hand-embroidered Kashmiri kurta by YAWUN">
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="strip-inner">
+    <span>Sozni Embroidery</span><span class="sep">✦</span>
+    <span>Tilla Work</span><span class="sep">✦</span>
+    <span>Aari Craft</span><span class="sep">✦</span>
+    <span>Handloom Pashmina</span><span class="sep">✦</span>
+    <span>Sozni Embroidery</span><span class="sep">✦</span>
+    <span>Tilla Work</span><span class="sep">✦</span>
+    <span>Aari Craft</span><span class="sep">✦</span>
+    <span>Handloom Pashmina</span><span class="sep">✦</span>
+  </div>
+</div>
+
+<section class="story" id="story">
+  <div class="wrap story-grid">
+    <div>
+      <div class="eyebrow-line"><span class="dash"></span> Our Story</div>
+      <h2>Rooted in Kunzer, worn everywhere.</h2>
+    </div>
+    <div class="col">
+      <p>Kunzer sits thirty kilometres from Srinagar, on the banks of the Ferozpora Nallah — a small town known for its clean spring water and, quietly, for the needlework of the families who live there.</p>
+      <p>YAWUN began as an effort to keep that needlework in daily use rather than in museum cases: pherans, shawls and kurtas made the way they have always been made, then worn by people far from the valley.</p>
+      <p>Today YAWUN is a boutique-cum-showroom in Kunzer — walk in for a ready piece, or bring your own fabric and design for custom stitching or custom embroidery made to your measurements.</p>
+      <p>Every piece passes through a single artisan's hands from thread to finish. We work in small batches, because sozni and tilla embroidery cannot be rushed without it showing.</p>
+      <img src="images/1000352889.jpg" alt="Interior of the YAWUN boutique showroom in Kunzer, Kashmir" style="margin-top:28px; border-radius:2px; width:100%; object-fit:cover;">
+    </div>
+  </div>
+</section>
+
+<section class="craft" id="craft">
+  <div class="wrap">
+    <div class="craft-head">
+      <div class="eyebrow-line" style="color:var(--gold-soft)"><span class="dash" style="background:var(--gold-soft)"></span> The Craft</div>
+      <h2>Three techniques, one valley.</h2>
+      <p>Each garment is built around a technique chosen for the fabric and the occasion it's made for — not applied as decoration afterward.</p>
+    </div>
+    <div class="craft-grid">
+      <div class="craft-item">
+        <svg viewBox="0 0 40 40" fill="none"><path d="M20 4C12 12 8 20 12 28C15 33 22 34 24 38" stroke="#D2AD6C" stroke-width="1.5"/><circle cx="20" cy="4" r="2" fill="#D2AD6C"/></svg>
+        <div>
+          <h3>Sozni</h3>
+          <p>Fine needle embroidery worked with a single thread, used for the dense floral panels seen on formal pherans and shawls.</p>
+          <div class="kash">"the finest of the needle"</div>
+        </div>
+      </div>
+      <div class="craft-item">
+        <svg viewBox="0 0 40 40" fill="none"><path d="M8 30C14 20 18 12 30 8" stroke="#D2AD6C" stroke-width="1.5"/><path d="M8 30l6 2M8 30l2-6" stroke="#D2AD6C" stroke-width="1.2"/></svg>
+        <div>
+          <h3>Tilla</h3>
+          <p>Metallic thread couched onto fabric in bold geometric and paisley motifs — the technique reserved for bridal and festive wear.</p>
+          <div class="kash">"gold laid, not stitched"</div>
+        </div>
+      </div>
+      <div class="craft-item">
+        <svg viewBox="0 0 40 40" fill="none"><path d="M10 10c8 0 8 20 20 20" stroke="#D2AD6C" stroke-width="1.5"/><path d="M10 10c0 8 20 8 20 20" stroke="#D2AD6C" stroke-width="1" opacity="0.6"/></svg>
+        <div>
+          <h3>Aari</h3>
+          <p>A hooked needle pulls chain-stitch loops in continuous lines, giving everyday kurtas and stoles their running vine patterns.</p>
+          <div class="kash">"the hook that draws"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="collection" id="services" style="padding-bottom:0;">
+  <div class="wrap">
+    <div class="coll-head">
+      <h2>What We Offer</h2>
+      <p>Step into the showroom for ready pieces, or bring us a design and we'll make it to measure.</p>
+    </div>
+    <div class="craft-grid" style="background:var(--line); border-color:var(--line);">
+      <div class="craft-item" style="background:var(--cream-soft);">
+        <svg viewBox="0 0 40 40" fill="none"><path d="M20 4C12 12 8 20 12 28C15 33 22 34 24 38" stroke="#7A2418" stroke-width="1.5"/><circle cx="20" cy="4" r="2" fill="#7A2418"/></svg>
+        <div>
+          <h3 style="color:var(--walnut);">Kashmiri Cultural Clothing</h3>
+          <p style="color:#5a4c3b;">Pherans, shawls, kurtas and stoles, ready to wear off the showroom floor.</p>
+        </div>
+      </div>
+      <div class="craft-item" style="background:var(--cream-soft);">
+        <svg viewBox="0 0 40 40" fill="none"><path d="M8 30C14 20 18 12 30 8" stroke="#7A2418" stroke-width="1.5"/><path d="M8 30l6 2M8 30l2-6" stroke="#7A2418" stroke-width="1.2"/></svg>
+        <div>
+          <h3 style="color:var(--walnut);">Custom Stitching Designs</h3>
+          <p style="color:#5a4c3b;">Bring your own design or fabric — we stitch it to your measurements.</p>
+        </div>
+      </div>
+      <div class="craft-item" style="background:var(--cream-soft);">
+        <svg viewBox="0 0 40 40" fill="none"><path d="M10 10c8 0 8 20 20 20" stroke="#7A2418" stroke-width="1.5"/><path d="M10 10c0 8 20 8 20 20" stroke="#7A2418" stroke-width="1" opacity="0.6"/></svg>
+        <div>
+          <h3 style="color:var(--walnut);">Custom Cultural Embroidery</h3>
+          <p style="color:#5a4c3b;">Sozni, tilla or aari work added to your own garment, done to order.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="collection" id="collection">
+  <div class="wrap">
+    <div class="coll-head">
+      <h2>The Collection</h2>
+      <p>A working wardrobe of Kashmiri dress — from everyday kurtas to embroidery kept for weddings and winters.</p>
+    </div>
+    <div class="coll-grid">
+      <div class="coll-card">
+        <div class="coll-swatch"><img src="images/1000353359.jpg" alt="Pink hand-embroidered Kashmiri kurta with floral sozni work"></div>
+        <h3>Embroidered Kurtas</h3>
+        <p>Floral sozni work, pintuck pleating, handcrafted finish</p>
+      </div>
+      <div class="coll-card">
+        <div class="coll-swatch"><svg viewBox="0 0 60 60"><rect x="10" y="10" width="40" height="40" fill="none" stroke="#B8863B" stroke-width="1.2" stroke-dasharray="3 3"/></svg></div>
+        <h3>Pashmina Shawls</h3>
+        <p>Handloom base, tilla and sozni borders</p>
+      </div>
+      <div class="coll-card">
+        <div class="coll-swatch"><img src="images/1000353149.jpg" alt="Sage green men's kurta with tonal embroidery by YAWUN"></div>
+        <h3>Kurtas &amp; Stoles</h3>
+        <p>Aari chain-stitch, everyday cotton and linen</p>
+      </div>
+      <div class="coll-card">
+        <div class="coll-swatch"><img src="images/1000353357.jpg" alt="White hand-embroidered Kashmiri gown with red floral border embroidery"></div>
+        <h3>Bridal &amp; Festive Wear</h3>
+        <p>Dense floral embroidery, made to order</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="collection" id="menswear">
+  <div class="wrap">
+    <div class="coll-head">
+      <h2>Men's Collection</h2>
+      <p>Kurtas and shirts carrying the same handwork, cut for the men's line.</p>
+    </div>
+    <div class="coll-grid">
+      <div class="coll-card">
+        <div class="coll-swatch"><img src="images/1000353291.jpg" alt="Cream men's shirt with pearl beadwork and vine embroidery"></div>
+        <h3>Ivory Bead Shirt</h3>
+        <p>Pearl beadwork, vine embroidery, mother-of-pearl studs</p>
+      </div>
+      <div class="coll-card">
+        <div class="coll-swatch"><img src="images/1000353293.jpg" alt="White men's shirt with red beadwork and vine embroidery"></div>
+        <h3>Crimson Bead Shirt</h3>
+        <p>Same silhouette, worked in deep red on white</p>
+      </div>
+      <div class="coll-card">
+        <div class="coll-swatch"><img src="images/1000353296.jpg" alt="Black velvet men's shirt with gold pearl and maple leaf embroidery"></div>
+        <h3>Velvet Occasion Shirt</h3>
+        <p>Gold pearls and maple-leaf embroidery on black velvet</p>
+      </div>
+      <div class="coll-card">
+        <div class="coll-swatch"><img src="images/1000353149.jpg" alt="Sage green men's kurta with tonal embroidery"></div>
+        <h3>Everyday Kurta</h3>
+        <p>Tonal embroidery, relaxed cotton, made for daily wear</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="collection" id="gallery">
+  <div class="wrap">
+    <div class="coll-head">
+      <h2>From the Showroom</h2>
+      <p>A closer look at pieces currently on the floor in Kunzer.</p>
+    </div>
+    <div class="coll-grid">
+      <div class="coll-card">
+        <div class="coll-swatch"><img src="images/1000353172.jpg" alt="Black Kashmiri dress with mirror-work embroidery and bell sleeves"></div>
+        <h3>Mirror-Work Dress</h3>
+        <p>Silver and gold mirror embroidery, bell sleeves</p>
+      </div>
+      <div class="coll-card">
+        <div class="coll-swatch"><img src="images/1000353330.jpg" alt="Ivory Kashmiri dress with pink floral embroidery and lace hem"></div>
+        <h3>Ivory Floral Dress</h3>
+        <p>Dimensional floral embroidery, lace-trimmed hem</p>
+      </div>
+      <div class="coll-card">
+        <div class="coll-swatch"><img src="images/1000353361.jpg" alt="Navy Kashmiri dress with gold and white floral embroidery"></div>
+        <h3>Navy Bloom Dress</h3>
+        <p>Gold zari borders, white floral appliqué</p>
+      </div>
+      <div class="coll-card">
+        <div class="coll-swatch"><img src="images/1000353360.jpg" alt="Emerald green velvet Kashmiri dress with gold and white floral embroidery"></div>
+        <h3>Emerald Velvet Dress</h3>
+        <p>Velvet base, gold and ivory floral embroidery</p>
+      </div>
+      <div class="coll-card">
+        <div class="coll-swatch"><img src="images/1000353358.jpg" alt="Black Kashmiri dress with gold floral embroidery"></div>
+        <h3>Noir Gold Dress</h3>
+        <p>All-over gold floral embroidery on black</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="visit" id="visit">
+  <div class="wrap visit-grid">
+    <div>
+      <div class="eyebrow-line"><span class="dash"></span> Visit &amp; Contact</div>
+      <h2>Visit the boutique, or reach us directly.</h2>
+
+      <div class="info-row">
+        <div class="label">Boutique</div>
+        <div class="val">YAWUN — The Soul of Kashmir<br>Kunzer, Baramulla, Jammu &amp; Kashmir
+          <small>Boutique-cum-showroom</small>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="label">WhatsApp</div>
+        <div class="val"><a href="https://wa.me/917051539942" target="_blank" rel="noopener">+91 70515 39942</a></div>
+      </div>
+      <div class="info-row">
+        <div class="label">Email</div>
+        <div class="val"><a href="mailto:javidganie4t6@gmail.com">javidganie4t6@gmail.com</a></div>
+      </div>
+      <div class="info-row">
+        <div class="label">Hours</div>
+        <div class="val">Saturday – Thursday, 10am – 7pm
+          <small>Update if this doesn't match your actual hours</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-frame">
+      <svg viewBox="0 0 40 40" fill="none"><path d="M20 4C12 4 6 10 6 18c0 12 14 18 14 18s14-6 14-18c0-8-6-14-14-14Z" stroke="#D2AD6C" stroke-width="1.5"/><circle cx="20" cy="18" r="4" stroke="#D2AD6C" stroke-width="1.3"/></svg>
+      <span>Find YAWUN on Google Maps — Kunzer, Baramulla, Jammu &amp; Kashmir</span>
+      <a class="btn btn-ghost" style="border-color:var(--gold-soft); color:var(--cream-soft)" href="https://maps.app.goo.gl/yFcT1diR8Z15tSLy5" target="_blank" rel="noopener">Open in Google Maps</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">YAWUN</div>
+        <p style="max-width:32ch">Woven with love, worn with pride. A boutique-cum-showroom for Kashmiri cultural clothing, custom stitching and custom embroidery, in Kunzer, Baramulla.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <a href="#story">Our Story</a>
+        <a href="#craft">The Craft</a>
+        <a href="#collection">Collection</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <a href="#visit">Visit &amp; Contact</a>
+        <a href="https://wa.me/917051539942" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:javidganie4t6@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="stitch dark"></div>
+    <div class="foot-bottom">
+      <span>© 2026 YAWUN — The Soul of Kashmir</span>
+      <span>Kunzer · Baramulla · Jammu &amp; Kashmir</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
